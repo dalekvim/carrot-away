@@ -8,7 +8,7 @@ export const LoginScreen: React.FC = () => {
       <Formik
         initialValues={{
           email: "",
-          passoword: "",
+          password: "",
         }}
         onSubmit={(values) => console.log(values)}
       >
