@@ -1,29 +1,27 @@
-import { gql, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { Formik } from "formik";
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { Container, ListGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { AuthContext } from "..";
 import { LoadingError } from "../components/LoadingError";
 import { Searchbar } from "../components/Searchbar";
+import { SEARCH_REC_LISTS } from "../constants/queries";
 
-const SEARCH_REC_LISTS = gql`
-  query SearchRecList($title: String!) {
-    searchRecList(title: $title) {
-      _id
-      title
-    }
-  }
-`;
+export const HomeScreen: React.FC = observer(() => {
+  const authStore = React.useContext(AuthContext);
 
-export const HomeScreen: React.FC = () => {
   const [searchRecLists, { loading, error, data }] =
     useLazyQuery(SEARCH_REC_LISTS);
 
   return (
     <div>
       <Container className="pt-3 pb-3">
+        <>{authStore.accessToken}</>
         <Formik
           initialValues={{ search: "" }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(_, { setSubmitting }) => {
             setSubmitting(false);
           }}
         >
@@ -50,9 +48,9 @@ export const HomeScreen: React.FC = () => {
           {data ? (
             <ListGroup as="ul">
               {data.searchRecList.map((recList: any) => (
-                <ListGroup.Item key={recList._id} as="li">
-                  {recList.title}
-                </ListGroup.Item>
+                <Link key={recList._id} to={`/rec-list/${recList._id}`}>
+                  <ListGroup.Item as="li">{recList.title}</ListGroup.Item>
+                </Link>
               ))}
             </ListGroup>
           ) : null}
@@ -60,4 +58,4 @@ export const HomeScreen: React.FC = () => {
       </Container>
     </div>
   );
-};
+});

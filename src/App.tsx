@@ -1,12 +1,11 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import { Route, Routes } from "react-router-dom";
 import { MyNavbar } from "./components/MyNavbar";
-import { HomeScreen } from "./screens/Home";
-import { LoginScreen } from "./screens/Login";
-import { RegisterScreen } from "./screens/Register";
+import { HomeScreen, LoginScreen, RegisterScreen } from "./screens";
+import { RecList } from "./screens/RecListById";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div>
       <MyNavbar />
@@ -15,6 +14,7 @@ const App = () => {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/rec-list/:recListId" element={<RecList />} />
         </Routes>
       </Container>
     </div>

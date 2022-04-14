@@ -11,7 +11,7 @@ export const LoadingError: React.FC<Props> = ({ loading, error, children }) => {
   return loading ? (
     <p>Loading...</p>
   ) : error ? (
-    <p>{error.graphQLErrors[0].message}</p>
+    <p>{error.graphQLErrors[0] ? error.graphQLErrors[0].message : null}</p>
   ) : (
     <div>{children}</div>
   );
