@@ -1,0 +1,3 @@
+mutation CreateRecList($title: String!) {
+  createRecList(title: $title)
+}

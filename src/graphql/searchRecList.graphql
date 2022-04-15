@@ -1,0 +1,6 @@
+query SearchRecList($title: String!) {
+  searchRecList(title: $title) {
+    _id
+    title
+  }
+}

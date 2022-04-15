@@ -1,4 +1,3 @@
-import { useLazyQuery } from "@apollo/client";
 import { Formik } from "formik";
 import { observer } from "mobx-react-lite";
 import React from "react";
@@ -7,18 +6,27 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "..";
 import { LoadingError } from "../components/LoadingError";
 import { Searchbar } from "../components/Searchbar";
-import { SEARCH_REC_LISTS } from "../constants/queries";
+import { useSearchRecListLazyQuery } from "../generated/graphql";
 
 export const HomeScreen: React.FC = observer(() => {
   const authStore = React.useContext(AuthContext);
 
   const [searchRecLists, { loading, error, data }] =
-    useLazyQuery(SEARCH_REC_LISTS);
+    useSearchRecListLazyQuery();
+
+  const timeTilExpireInMinutes = Math.floor(authStore.getTimeTilExpire() / 60);
 
   return (
     <div>
       <Container className="pt-3 pb-3">
-        <>{authStore.accessToken}</>
+        {timeTilExpireInMinutes === 0 ? (
+          <p>
+            Your session is about to end. Want to{" "}
+            <Link to="/login">login in again?</Link>
+          </p>
+        ) : timeTilExpireInMinutes > 0 ? (
+          <p>{`Your session will end in ${timeTilExpireInMinutes} minutes.`}</p>
+        ) : null}
         <Formik
           initialValues={{ search: "" }}
           onSubmit={(_, { setSubmitting }) => {
@@ -34,18 +42,24 @@ export const HomeScreen: React.FC = observer(() => {
           }) => (
             <Searchbar
               values={values}
-              handleChange={handleChange}
+              handleChange={(event: React.ChangeEvent<any>) => {
+                handleChange(event);
+                searchRecLists({
+                  variables: { title: event.target.value },
+                });
+              }}
               handleBlur={handleBlur}
               handleSubmit={handleSubmit}
               isSubmitting={isSubmitting}
-              searchRecLists={searchRecLists}
+              placeholder="An anime where..."
+              buttonText="Search"
             />
           )}
         </Formik>
       </Container>
       <Container>
         <LoadingError loading={loading} error={error}>
-          {data ? (
+          {data && data.searchRecList ? (
             <ListGroup as="ul">
               {data.searchRecList.map((recList: any) => (
                 <Link key={recList._id} to={`/rec-list/${recList._id}`}>

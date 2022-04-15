@@ -1,4 +1,3 @@
-import { useMutation } from "@apollo/client";
 import { Formik } from "formik";
 import { observer } from "mobx-react-lite";
 import React from "react";
@@ -6,16 +5,16 @@ import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "..";
 import { AuthForm } from "../components/AuthForm";
-import { LOGIN } from "../constants/mutations";
+import { useLoginMutation } from "../generated/graphql";
 
 export const LoginScreen: React.FC = observer(() => {
-  const [login] = useMutation(LOGIN);
+  const [login] = useLoginMutation();
   const authStore = React.useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
     <Container className="pt-3">
-      <h1>Register</h1>
+      <h1>Login</h1>
       <Formik
         initialValues={{
           email: "",

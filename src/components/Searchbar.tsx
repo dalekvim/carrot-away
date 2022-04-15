@@ -1,8 +1,3 @@
-import {
-  LazyQueryResult,
-  OperationVariables,
-  QueryLazyOptions,
-} from "@apollo/client";
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { FormikProps } from "../types/formTypes";
@@ -11,9 +6,8 @@ interface Props extends FormikProps {
   values: {
     search: string;
   };
-  searchRecLists: (
-    options?: QueryLazyOptions<OperationVariables> | undefined
-  ) => Promise<LazyQueryResult<any, OperationVariables>>;
+  placeholder: string;
+  buttonText: string;
 }
 
 export const Searchbar: React.FC<Props> = ({
@@ -21,29 +15,25 @@ export const Searchbar: React.FC<Props> = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  searchRecLists,
   isSubmitting,
+  placeholder,
+  buttonText,
 }) => {
   return (
     <Form onSubmit={handleSubmit} className="d-flex">
       <Form.Control
         type="search"
         name="search"
-        onChange={(event) => {
-          handleChange(event);
-          searchRecLists({
-            variables: { title: event.target.value },
-          });
-        }}
+        onChange={handleChange}
         onBlur={handleBlur}
         value={values.search}
-        placeholder="An anime where..."
+        placeholder={placeholder}
         className="me-2"
         aria-label="Search"
         autoComplete="off"
       />
       <Button type="submit" variant="outline-success" disabled={isSubmitting}>
-        Search
+        {buttonText}
       </Button>
     </Form>
   );

@@ -1,0 +1,3 @@
+mutation AddAnime($malId: Float!, $recListId: String!) {
+  addAnime(malId: $malId, recListId: $recListId)
+}

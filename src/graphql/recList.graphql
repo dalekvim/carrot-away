@@ -1,0 +1,14 @@
+query RecList($recListId: String!) {
+  recList(recListId: $recListId) {
+    _id
+    title
+    createdBy {
+      _id
+      email
+    }
+    anime {
+      malId
+      image
+    }
+  }
+}

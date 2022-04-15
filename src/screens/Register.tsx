@@ -1,16 +1,12 @@
-import { useMutation } from "@apollo/client";
 import { Formik } from "formik";
-import { observer } from "mobx-react-lite";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "..";
 import { AuthForm } from "../components/AuthForm";
-import { LOGIN, REGISTER } from "../constants/mutations";
+import { useRegisterMutation } from "../generated/graphql";
 
-export const RegisterScreen: React.FC = observer(() => {
-  const [register] = useMutation(REGISTER);
-  const authStore = React.useContext(AuthContext);
+export const RegisterScreen: React.FC = () => {
+  const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
   return (
@@ -50,4 +46,4 @@ export const RegisterScreen: React.FC = observer(() => {
       </Formik>
     </Container>
   );
-});
+};
