@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/dalekvim/carrot-away/static/css/main.e7720ab7.css",
-    "main.js": "/dalekvim/carrot-away/static/js/main.09c80339.js",
+    "main.js": "/dalekvim/carrot-away/static/js/main.03426dec.js",
     "static/js/787.405075fe.chunk.js": "/dalekvim/carrot-away/static/js/787.405075fe.chunk.js",
     "index.html": "/dalekvim/carrot-away/index.html",
     "main.e7720ab7.css.map": "/dalekvim/carrot-away/static/css/main.e7720ab7.css.map",
-    "main.09c80339.js.map": "/dalekvim/carrot-away/static/js/main.09c80339.js.map",
+    "main.03426dec.js.map": "/dalekvim/carrot-away/static/js/main.03426dec.js.map",
     "787.405075fe.chunk.js.map": "/dalekvim/carrot-away/static/js/787.405075fe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e7720ab7.css",
-    "static/js/main.09c80339.js"
+    "static/js/main.03426dec.js"
   ]
 }
