@@ -8,7 +8,7 @@ import { setContext } from "@apollo/client/link/context";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthStore } from "./stores/authStore";
@@ -46,9 +46,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authStore}>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </AuthContext.Provider>
     </ApolloProvider>
   </React.StrictMode>
