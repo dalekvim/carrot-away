@@ -1,0 +1,3 @@
+mutation DeleteAnime($malId: Float!, $recListId: String!) {
+  deleteAnime(malId: $malId, recListId: $recListId)
+}

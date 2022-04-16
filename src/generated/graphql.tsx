@@ -131,12 +131,27 @@ export type AddAnimeMutationVariables = Exact<{
 
 export type AddAnimeMutation = { __typename?: 'Mutation', addAnime: boolean };
 
+export type AnimeByIdQueryVariables = Exact<{
+  malId: Scalars['Float'];
+}>;
+
+
+export type AnimeByIdQuery = { __typename?: 'Query', animeById: { __typename?: 'AnimeDetails', malId: string, title: string, image: string, synopsis: string } };
+
 export type CreateRecListMutationVariables = Exact<{
   title: Scalars['String'];
 }>;
 
 
 export type CreateRecListMutation = { __typename?: 'Mutation', createRecList: boolean };
+
+export type DeleteAnimeMutationVariables = Exact<{
+  malId: Scalars['Float'];
+  recListId: Scalars['String'];
+}>;
+
+
+export type DeleteAnimeMutation = { __typename?: 'Mutation', deleteAnime: boolean };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -206,6 +221,44 @@ export function useAddAnimeMutation(baseOptions?: Apollo.MutationHookOptions<Add
 export type AddAnimeMutationHookResult = ReturnType<typeof useAddAnimeMutation>;
 export type AddAnimeMutationResult = Apollo.MutationResult<AddAnimeMutation>;
 export type AddAnimeMutationOptions = Apollo.BaseMutationOptions<AddAnimeMutation, AddAnimeMutationVariables>;
+export const AnimeByIdDocument = gql`
+    query AnimeById($malId: Float!) {
+  animeById(malId: $malId) {
+    malId
+    title
+    image
+    synopsis
+  }
+}
+    `;
+
+/**
+ * __useAnimeByIdQuery__
+ *
+ * To run a query within a React component, call `useAnimeByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimeByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimeByIdQuery({
+ *   variables: {
+ *      malId: // value for 'malId'
+ *   },
+ * });
+ */
+export function useAnimeByIdQuery(baseOptions: Apollo.QueryHookOptions<AnimeByIdQuery, AnimeByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AnimeByIdQuery, AnimeByIdQueryVariables>(AnimeByIdDocument, options);
+      }
+export function useAnimeByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AnimeByIdQuery, AnimeByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AnimeByIdQuery, AnimeByIdQueryVariables>(AnimeByIdDocument, options);
+        }
+export type AnimeByIdQueryHookResult = ReturnType<typeof useAnimeByIdQuery>;
+export type AnimeByIdLazyQueryHookResult = ReturnType<typeof useAnimeByIdLazyQuery>;
+export type AnimeByIdQueryResult = Apollo.QueryResult<AnimeByIdQuery, AnimeByIdQueryVariables>;
 export const CreateRecListDocument = gql`
     mutation CreateRecList($title: String!) {
   createRecList(title: $title)
@@ -237,6 +290,38 @@ export function useCreateRecListMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateRecListMutationHookResult = ReturnType<typeof useCreateRecListMutation>;
 export type CreateRecListMutationResult = Apollo.MutationResult<CreateRecListMutation>;
 export type CreateRecListMutationOptions = Apollo.BaseMutationOptions<CreateRecListMutation, CreateRecListMutationVariables>;
+export const DeleteAnimeDocument = gql`
+    mutation DeleteAnime($malId: Float!, $recListId: String!) {
+  deleteAnime(malId: $malId, recListId: $recListId)
+}
+    `;
+export type DeleteAnimeMutationFn = Apollo.MutationFunction<DeleteAnimeMutation, DeleteAnimeMutationVariables>;
+
+/**
+ * __useDeleteAnimeMutation__
+ *
+ * To run a mutation, you first call `useDeleteAnimeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAnimeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAnimeMutation, { data, loading, error }] = useDeleteAnimeMutation({
+ *   variables: {
+ *      malId: // value for 'malId'
+ *      recListId: // value for 'recListId'
+ *   },
+ * });
+ */
+export function useDeleteAnimeMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAnimeMutation, DeleteAnimeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteAnimeMutation, DeleteAnimeMutationVariables>(DeleteAnimeDocument, options);
+      }
+export type DeleteAnimeMutationHookResult = ReturnType<typeof useDeleteAnimeMutation>;
+export type DeleteAnimeMutationResult = Apollo.MutationResult<DeleteAnimeMutation>;
+export type DeleteAnimeMutationOptions = Apollo.BaseMutationOptions<DeleteAnimeMutation, DeleteAnimeMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {

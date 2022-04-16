@@ -1,0 +1,8 @@
+query AnimeById($malId: Float!) {
+  animeById(malId: $malId) {
+    malId
+    title
+    image
+    synopsis
+  }
+}

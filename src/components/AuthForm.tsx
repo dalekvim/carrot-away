@@ -39,6 +39,7 @@ export const AuthForm: React.FC<Props> = ({
           onBlur={handleBlur}
           value={values.password}
           placeholder="Password"
+          minLength={8}
         />
       </Form.Group>
 

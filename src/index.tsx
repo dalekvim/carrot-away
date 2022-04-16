@@ -18,7 +18,7 @@ const authStore = new AuthStore();
 export const AuthContext = React.createContext<AuthStore>(authStore);
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/",
+  uri: "https://evening-thicket-48459.herokuapp.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
